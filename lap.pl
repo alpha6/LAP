@@ -18,7 +18,7 @@ use IO::Termios;
 my $cv = AE::cv;
 
 say 'Starting printer emulator...';
-my $pty = new IO::Pty;
+my $pty = IO::Pty->new();
 $pty->set_raw();
 
 
