@@ -62,13 +62,6 @@ sub connect ( $class, $stty ) {
     ) || die $!;
 
 
-    my $w = AnyEvent->timer(
-        after    => 1,
-        interval => 10,
-
-        cb => sub { $hdl->push_write("test_line\015\012"); }
-    );
-
     $self->{'handle'} = $hdl;
 
 

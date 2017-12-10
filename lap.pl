@@ -15,18 +15,21 @@ use Print3r::LAP;
 use IO::Pty;
 use IO::Termios;
 
+use Data::Dumper;
+
 my $cv = AE::cv;
 
 say 'Starting printer emulator...';
 my $pty = IO::Pty->new();
 $pty->set_raw();
-
+$pty->stty('raw');
 
 say "pty: ".$pty->ttyname();
 
 my $stty = IO::Termios->new($pty);
 $stty->set_mode("115200,8,n,1");
 $stty->setflag_echo( 0 );
+$stty->setflag_hupcl( 1 );
 
 my $printer = Print3r::LAP->connect($stty);
 $cv->recv;
